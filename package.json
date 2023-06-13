@@ -1,0 +1,15 @@
+{
+  "name": "whatsapp-api",
+  "version": "1.0.0",
+  "description": "whatsapp web api for handling multiple user on single account",
+  "main": "src/index.js",
+  "author": "Ryan Adi Putra",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "whatsapp-web.js": "^1.21.0"
+  }
+}
