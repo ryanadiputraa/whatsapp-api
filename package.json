@@ -10,6 +10,12 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
-    "whatsapp-web.js": "^1.21.0"
+    "cors": "^2.8.5",
+    "dotenv": "^16.1.4",
+    "express": "^4.18.2",
+    "qrcode-terminal": "^0.12.0",
+    "socket.io": "^4.6.2",
+    "whatsapp-web.js": "^1.21.0",
+    "winston": "^3.9.0"
   }
 }
