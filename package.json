@@ -17,5 +17,8 @@
     "socket.io": "^4.6.2",
     "whatsapp-web.js": "^1.21.0",
     "winston": "^3.9.0"
+  },
+  "devDependencies": {
+    "prisma": "^4.15.0"
   }
 }
