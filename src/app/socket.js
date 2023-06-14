@@ -15,7 +15,7 @@ const socket = new Server(server, {
   cors: { origin: process.env.WEB_URL },
 })
 
-initController(waClient)
+initController(waClient, socket)
 chatController(waClient, socket)
 
 export { waClient, server }
