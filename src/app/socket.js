@@ -4,6 +4,7 @@ import http from "http"
 
 import { web } from "./web.js"
 import { initController } from "../controller/init-controller.js"
+import { chatController } from "../controller/chat-controller.js"
 const { Client, LocalAuth } = whatsappWeb
 
 const waClient = new Client({
@@ -15,5 +16,6 @@ const socket = new Server(server, {
 })
 
 initController(waClient)
+chatController(waClient, socket)
 
-export { waClient }
+export { waClient, server }
