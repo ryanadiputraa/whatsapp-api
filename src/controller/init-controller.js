@@ -3,7 +3,7 @@ import qrCode from "qrcode-terminal"
 import { logger } from "../app/logging.js"
 import { save } from "../service/client-service.js"
 
-export const initController = (waClient, socket) => {
+export const initController = (waClient) => {
   waClient.on("qr", (qr) => {
     qrCode.generate(qr, { small: true })
   })

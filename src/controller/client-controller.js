@@ -1,7 +1,7 @@
 import { logger } from "../app/logging.js"
 import { getInfo } from "../service/client-service.js"
 
-export const clientController = async (waClient, socket) => {
+export const clientController = async (socket) => {
   try {
     const clientInfo = await getInfo()
     socket.emit("client", clientInfo)
