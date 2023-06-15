@@ -1,8 +1,10 @@
 import { waClient, server } from "./app/socket.js"
+import dotenv from "dotenv"
 
 import { logger } from "./app/logging.js"
 import { prismaClient } from "./app/database.js"
 
+dotenv.config()
 waClient.initialize()
 
 // closing using CTRL+C
