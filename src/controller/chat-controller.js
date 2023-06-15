@@ -1,9 +1,14 @@
-import { save } from "../service/chat-service.js"
+import { save, fetchAll } from "../service/chat-service.js"
 import { encryptString } from "../app/crypto.js"
 import { logger } from "../app/logging.js"
 
-export const chatController = (waClient, socket) => {
-  // TODO: send chats history
+export const chatController = async (waClient, socket) => {
+  try {
+    const chats = await fetchAll()
+    socket.emit("chats", chats)
+  } catch (error) {
+    logger.error("fail to fetch chats: " + error)
+  }
 
   socket.on("send", (data) => {
     waClient.sendMessage(data.chatId ?? "", data.message ?? "")
@@ -17,8 +22,6 @@ export const chatController = (waClient, socket) => {
       delete chat["id"]
 
       chat.body = encryptString(chat.body, process.env.CRYPTO_KEY)
-
-      console.log(chat)
 
       socket.emit("message", chat)
       await save(chat)

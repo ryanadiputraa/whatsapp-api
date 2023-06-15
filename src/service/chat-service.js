@@ -24,3 +24,23 @@ export const save = async (chat) => {
     },
   })
 }
+
+export const fetchAll = async () => {
+  let chats = {}
+  const chatsData = await prismaClient.chats.findMany()
+
+  await Promise.all(
+    chatsData?.map(async (data) => {
+      const chatId = data.chatId
+      const chatData = await prismaClient.chat.findMany({
+        where: {
+          OR: [{ from: chatId }, { to: chatId }],
+        },
+      })
+
+      chats[chatId] = chatData
+    })
+  )
+
+  return chats
+}
