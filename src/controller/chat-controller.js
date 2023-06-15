@@ -1,3 +1,7 @@
+import { save } from "../service/chat-service.js"
+import { encryptString } from "../app/crypto.js"
+import { logger } from "../app/logging.js"
+
 export const chatController = (waClient, socket) => {
   // TODO: send chats history
 
@@ -5,13 +9,21 @@ export const chatController = (waClient, socket) => {
     waClient.sendMessage(data.chatId ?? "", data.message ?? "")
   })
 
-  waClient.on("message_create", (message) => {
-    const chat = message
-    delete chat["_data"]
-    delete chat["mediaKey"]
-    delete chat["id"]
+  waClient.on("message_create", async (message) => {
+    try {
+      const chat = message
+      delete chat["_data"]
+      delete chat["mediaKey"]
+      delete chat["id"]
 
-    // TODO: call save message service
-    socket.emit("message", message)
+      chat.body = encryptString(chat.body, process.env.CRYPTO_KEY)
+
+      console.log(chat)
+
+      socket.emit("message", chat)
+      await save(chat)
+    } catch (error) {
+      logger.error("fail to save msg: " + err)
+    }
   })
 }

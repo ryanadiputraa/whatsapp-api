@@ -18,35 +18,37 @@ model Client {
 
 model Chat {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId
-  chats           Chats    @relation(fields: [from], references: [chatId])
-  ack             Int
-  hasMedia        Boolean
-  body            String
-  type            String
-  timestamp       Int
-  from            String
-  to              String
+  chatId          String
+  ack             Int?
+  hasMedia        Boolean?
+  body            String?
+  type            String?
+  timestamp       Int?
+  from            String?
+  to              String?
   author          String?
-  deviceType      String
-  isForwarded     Boolean
-  forwardingScore Int
-  isStatus        Boolean
-  isStarred       Boolean
-  broadcast       Boolean
-  fromMe          Boolean
-  hasQuotedMsg    Boolean
-  hasReaction     Boolean
+  deviceType      String?
+  isForwarded     Boolean?
+  forwardingScore Int?
+  isStatus        Boolean?
+  isStarred       Boolean?
+  broadcast       Boolean?
+  fromMe          Boolean?
+  hasQuotedMsg    Boolean?
+  hasReaction     Boolean?
   duration        Int?
   location        String?
+  vCards          String[]
   inviteV4        String?
+  mentionedIds    String[]
   orderId         String?
   token           String?
-  isGif           Boolean
+  isGif           Boolean?
   isEphemeral     Boolean?
+  links           String[]
 }
 
 model Chats {
   id     String @id @default(auto()) @map("_id") @db.ObjectId
   chatId String @unique
-  chats  Chat[]
 }
