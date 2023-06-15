@@ -1,4 +1,8 @@
 export const chatController = (waClient, socket) => {
+  socket.on("send", (data) => {
+    waClient.sendMessage(data.chatId ?? "", data.message ?? "")
+  })
+
   waClient.on("message_create", (message) => {
     const chat = message
     delete chat["_data"]

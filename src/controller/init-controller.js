@@ -13,6 +13,6 @@ export const initController = (waClient, socket) => {
       number: waClient.info.me?.user ?? "-",
     }
     logger.info("client connected: ", client)
-    socket.emit("client", client)
+    // TODO: call save/update client info service
   })
 }

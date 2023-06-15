@@ -11,11 +11,14 @@ const waClient = new Client({
   authStrategy: new LocalAuth(),
 })
 const server = http.createServer(web)
-const socket = new Server(server, {
+const io = new Server(server, {
   cors: { origin: process.env.WEB_URL },
 })
 
-initController(waClient, socket)
-chatController(waClient, socket)
+initController(waClient, io)
+io.on("connection", (socket) => {
+  // TODO: send client info to web
+  chatController(waClient, socket)
+})
 
 export { waClient, server }
