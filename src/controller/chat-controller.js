@@ -1,4 +1,6 @@
 export const chatController = (waClient, socket) => {
+  // TODO: send chats history
+
   socket.on("send", (data) => {
     waClient.sendMessage(data.chatId ?? "", data.message ?? "")
   })

@@ -9,3 +9,44 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model Client {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  name   String
+  number String @unique
+}
+
+model Chat {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  chats           Chats    @relation(fields: [from], references: [chatId])
+  ack             Int
+  hasMedia        Boolean
+  body            String
+  type            String
+  timestamp       Int
+  from            String
+  to              String
+  author          String?
+  deviceType      String
+  isForwarded     Boolean
+  forwardingScore Int
+  isStatus        Boolean
+  isStarred       Boolean
+  broadcast       Boolean
+  fromMe          Boolean
+  hasQuotedMsg    Boolean
+  hasReaction     Boolean
+  duration        Int?
+  location        String?
+  inviteV4        String?
+  orderId         String?
+  token           String?
+  isGif           Boolean
+  isEphemeral     Boolean?
+}
+
+model Chats {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  chatId String @unique
+  chats  Chat[]
+}
