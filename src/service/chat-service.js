@@ -1,6 +1,6 @@
 import { prismaClient } from "../app/database.js"
 
-export const save = async (chat) => {
+export const saveChat = async (chat) => {
   const chatId = chat.fromMe ? chat.to : chat.from
 
   const chatsCount = await prismaClient.chats.count({
@@ -25,7 +25,7 @@ export const save = async (chat) => {
   })
 }
 
-export const fetchAll = async () => {
+export const fetchAllChat = async () => {
   let chats = {}
   const chatsData = await prismaClient.chats.findMany()
 

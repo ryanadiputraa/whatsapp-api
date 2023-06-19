@@ -1,9 +1,9 @@
 import qrCode from "qrcode-terminal"
 
 import { logger } from "../app/logging.js"
-import { save } from "../service/client-service.js"
+import { saveClient } from "../service/client-service.js"
 
-export const initController = (waClient) => {
+export const initController = (waClient, io) => {
   waClient.on("qr", (qr) => {
     qrCode.generate(qr, { small: true })
   })
@@ -14,6 +14,6 @@ export const initController = (waClient) => {
       number: waClient.info.me?.user ?? "-",
     }
     logger.info("client connected: ", client)
-    await save(client)
+    await saveClient(client)
   })
 }

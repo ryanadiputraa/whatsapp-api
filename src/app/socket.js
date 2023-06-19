@@ -16,10 +16,8 @@ const io = new Server(server, {
   cors: { origin: process.env.WEB_URL },
 })
 
-initController(waClient)
+initController(waClient, io)
 chatController(waClient, io)
-io.on("connection", async (socket) => {
-  clientController(socket)
-})
+clientController(waClient, io)
 
 export { waClient, server }

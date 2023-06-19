@@ -1,11 +1,11 @@
-import { save, fetchAll } from "../service/chat-service.js"
+import { saveChat, fetchAllChat } from "../service/chat-service.js"
 import { encryptString } from "../app/crypto.js"
 import { logger } from "../app/logging.js"
 
-export const chatController = async (waClient, io) => {
+export const chatController = (waClient, io) => {
   try {
-    const chats = await fetchAll()
-    io.on("connection", (socket) => {
+    io.on("connection", async (socket) => {
+      const chats = await fetchAllChat()
       socket.emit("chats", chats)
     })
   } catch (error) {
@@ -30,7 +30,7 @@ export const chatController = async (waClient, io) => {
       chat.body = encryptString(chat.body, process.env.CRYPTO_KEY)
 
       io.emit("message", chat)
-      await save(chat)
+      await saveChat(chat)
     } catch (error) {
       logger.error("fail to save msg: " + error)
     }

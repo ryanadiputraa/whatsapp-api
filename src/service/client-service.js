@@ -1,6 +1,6 @@
 import { prismaClient } from "../app/database.js"
 
-export const save = async (clientInfo) => {
+export const saveClient = async (clientInfo) => {
   await prismaClient.client.upsert({
     create: clientInfo,
     where: { number: clientInfo.number },
@@ -8,4 +8,4 @@ export const save = async (clientInfo) => {
   })
 }
 
-export const getInfo = async () => await prismaClient.client.findFirst()
+export const getClientInfo = async () => await prismaClient.client.findFirst()
