@@ -1,7 +1,7 @@
 import { prismaClient } from "../app/database.js"
 
 export const saveChat = async (chat) => {
-  const chatId = chat.fromMe ? chat.to : chat.from
+  const chatId = chat.chatId ?? ""
 
   const chatsCount = await prismaClient.chats.count({
     where: {
@@ -20,6 +20,7 @@ export const saveChat = async (chat) => {
   await prismaClient.chat.create({
     data: {
       chatId: chatId,
+      profilePicture: chat["profilePicture"] ?? "",
       ...chat,
     },
   })

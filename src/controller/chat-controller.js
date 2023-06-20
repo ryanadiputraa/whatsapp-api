@@ -20,14 +20,18 @@ export const chatController = (waClient, io) => {
 
   waClient.on("message_create", async (message) => {
     try {
-      if (message.isStatus) return
+      if (message.isStatus || message.chatId?.includes("-")) return
 
-      const chat = message
+      let chat = message
       delete chat["_data"]
       delete chat["mediaKey"]
       delete chat["id"]
 
       chat.body = encryptString(chat.body, process.env.CRYPTO_KEY)
+      chat["chatId"] = chat.fromMe ? chat.to : chat.from
+
+      const profilePicture = await waClient.getProfilePicUrl(chat.chatId)
+      chat["profilePicture"] = profilePicture
 
       io.emit("message", chat)
       await saveChat(chat)
